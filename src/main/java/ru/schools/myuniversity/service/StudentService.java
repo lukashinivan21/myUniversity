@@ -1,6 +1,7 @@
 package ru.schools.myuniversity.service;
 
 import ru.schools.myuniversity.model.Faculty;
+import ru.schools.myuniversity.model.FieldsForQuery;
 import ru.schools.myuniversity.model.Student;
 
 import java.util.List;
@@ -26,4 +27,10 @@ public interface StudentService {
     List<Student> findStudentsByFacultyColor(String color);
 
     Faculty getFacultyOfStudentWithId(Long id);
+
+    int getAmountOfStudents();
+
+    float getMiddleAgeOfStudents();
+
+    List<FieldsForQuery> lastFiveStudents();
 }

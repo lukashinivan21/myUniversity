@@ -2,6 +2,7 @@ package ru.schools.myuniversity.service;
 
 import org.springframework.stereotype.Service;
 import ru.schools.myuniversity.model.Faculty;
+import ru.schools.myuniversity.model.FieldsForQuery;
 import ru.schools.myuniversity.model.Student;
 import ru.schools.myuniversity.repositories.StudentRepository;
 
@@ -70,10 +71,24 @@ public class StudentServiceImpl implements StudentService{
         return result.getFaculty();
     }
 
+    public int getAmountOfStudents() {
+        return studentRepository.getAmountOfStudents();
+    }
+
+    public float getMiddleAgeOfStudents() {
+        return studentRepository.getMiddleAgeOfStudents();
+    }
+
+    public List<FieldsForQuery> lastFiveStudents() {
+        return studentRepository.lastFiveStudents();
+    }
+
     private List<Student> checkListOnNull(List<Student> checkedList) {
         if (checkedList.isEmpty()) {
             return null;
         }
         return checkedList;
     }
+
+
 }
