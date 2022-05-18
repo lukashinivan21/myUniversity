@@ -47,7 +47,7 @@ public class StudentControllerTest {
         testFaculty.setName(facultyName);
         testFaculty.setColor(facultyColor);
         facultyRepository.save(testFaculty);
-        STUDENT1.setFaculty(testFaculty);
+        studentForCreateTest.setFaculty(testFaculty);
         STUDENT2.setFaculty(testFaculty);
         STUDENT3.setFaculty(testFaculty);
         STUDENT4.setFaculty(testFaculty);
@@ -85,10 +85,10 @@ public class StudentControllerTest {
 
     @Test
     public void testCreateStudent() {
-        ResponseEntity<Student> response = restTemplate.postForEntity("http://localhost:" + port + "/student", STUDENT1, Student.class);
+        ResponseEntity<Student> response = restTemplate.postForEntity("http://localhost:" + port + "/student", studentForCreateTest, Student.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(response.getBody().getName()).isEqualTo(STUDENT1.getName());
-        Assertions.assertThat(response.getBody().getAge()).isEqualTo(STUDENT1.getAge());
+        Assertions.assertThat(response.getBody().getName()).isEqualTo(studentForCreateTest.getName());
+        Assertions.assertThat(response.getBody().getAge()).isEqualTo(studentForCreateTest.getAge());
     }
 
     @Test
@@ -105,12 +105,12 @@ public class StudentControllerTest {
     public void checkUpdateStudent() {
         List<Student> students = studentRepository.findAll();
         long id = students.get(students.size() - index2ForTests).getId();
-        STUDENT1.setId(id);
-        HttpEntity<Student> entity = new HttpEntity<>(STUDENT1);
+        studentForCreateTest.setId(id);
+        HttpEntity<Student> entity = new HttpEntity<>(studentForCreateTest);
         ResponseEntity<Student> response = restTemplate.exchange("http://localhost:" + port + "/student/", HttpMethod.PUT, entity, Student.class);
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(response.getBody().getName()).isEqualTo(STUDENT1.getName());
-        Assertions.assertThat(response.getBody().getAge()).isEqualTo(STUDENT1.getAge());
+        Assertions.assertThat(response.getBody().getName()).isEqualTo(studentForCreateTest.getName());
+        Assertions.assertThat(response.getBody().getAge()).isEqualTo(studentForCreateTest.getAge());
     }
 
     @Test
@@ -170,6 +170,8 @@ public class StudentControllerTest {
         });
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(response.getBody().get(response.getBody().size() - index1ForTests).getName()).isEqualTo(STUDENT4.getName());
+        Assertions.assertThat(response.getBody().get(response.getBody().size() - index1ForTests).getAge()).isEqualTo(STUDENT4.getAge());
+        Assertions.assertThat(response.getBody().get(response.getBody().size() - index2ForTests).getName()).isEqualTo(STUDENT3.getName());
         Assertions.assertThat(response.getBody().get(response.getBody().size() - index2ForTests).getAge()).isEqualTo(STUDENT3.getAge());
     }
 }

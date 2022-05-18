@@ -20,7 +20,7 @@ public class Constants {
     public static final String facultyName = "MiddleEarth";
     public static final String facultyColor = "Green";
 
-    public static final Student STUDENT1 = new Student(studentsId, name1, age1);
+    public static final Student studentForCreateTest = new Student(studentsId, name1, age1);
     public static final Student STUDENT2 = new Student(studentsId, name2, age2);
     public static final Student STUDENT3 = new Student(studentsId, name3, age3);
     public static final Student STUDENT4 = new Student(studentsId, name4, age4);
