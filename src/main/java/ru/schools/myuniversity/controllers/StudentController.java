@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import ru.schools.myuniversity.model.Faculty;
+import ru.schools.myuniversity.model.FieldsForQuery;
 import ru.schools.myuniversity.model.Student;
 import ru.schools.myuniversity.service.StudentService;
 
@@ -97,6 +98,21 @@ public class StudentController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return result;
+    }
+
+    @GetMapping("/amountOfStudents")
+    public int amountOfStudents() {
+        return studentService.getAmountOfStudents();
+    }
+
+    @GetMapping("/middleAge")
+    public float middleAgeOfStudent() {
+        return studentService.getMiddleAgeOfStudents();
+    }
+
+    @GetMapping("/lastFiveStudents")
+    public ResponseEntity<List<FieldsForQuery>> lastFiveStudent() {
+        return ResponseEntity.ok(studentService.lastFiveStudents());
     }
 
 }
