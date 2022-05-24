@@ -33,4 +33,6 @@ public interface StudentService {
     float getMiddleAgeOfStudents();
 
     List<FieldsForQuery> lastFiveStudents();
+
+    public List<Student> getStudentsByName(String name);
 }
