@@ -9,7 +9,7 @@ import ru.schools.myuniversity.repositories.StudentRepository;
 import java.util.List;
 
 @Service
-public class StudentServiceImpl implements StudentService{
+public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
 
@@ -81,6 +81,10 @@ public class StudentServiceImpl implements StudentService{
 
     public List<FieldsForQuery> lastFiveStudents() {
         return studentRepository.lastFiveStudents();
+    }
+
+    public List<Student> getStudentsByName(String name) {
+        return checkListOnNull(studentRepository.findStudentsByName(name));
     }
 
     private List<Student> checkListOnNull(List<Student> checkedList) {

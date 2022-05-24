@@ -115,4 +115,12 @@ public class StudentController {
         return ResponseEntity.ok(studentService.lastFiveStudents());
     }
 
+    @GetMapping("/studentsWithName{name}")
+    public ResponseEntity<List<Student>> getStudentsByName(@PathVariable String name) {
+        List<Student> result = studentService.getStudentsByName(name);
+        if (result == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(result);
+    }
 }
