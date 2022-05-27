@@ -1,5 +1,7 @@
 package ru.schools.myuniversity.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -30,8 +32,11 @@ public class AvatarServiceImpl implements AvatarService {
         this.studentRepository = studentRepository;
     }
 
+    Logger logger = LoggerFactory.getLogger(AvatarServiceImpl.class);
+
     @Override
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
+        logger.info("Was requested method for upload avatar");
         Student student = studentRepository.getById(studentId);
 
         Path filePath = Path.of(avatarsDir, student + "." + getExtension(avatarFile.getOriginalFilename()));
@@ -61,11 +66,17 @@ public class AvatarServiceImpl implements AvatarService {
 
     @Override
     public Avatar findAvatar(Long id) {
-        return avatarRepository.findById(id).orElse(null);
+        logger.info("Search avatar with id " + id);
+        Avatar avatar = avatarRepository.findById(id).orElse(null);
+        if (avatar == null) {
+            logger.warn("There is not avatar with id " + id);
+        }
+        return avatar;
     }
 
     @Override
     public List<Avatar> getAvatarsByQuantity(int pageNumber, int pageSize) {
+        logger.info("Was requested method for getting avatars by " + pageSize + " items");
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         return avatarRepository.findAll(pageRequest).getContent();
     }
