@@ -66,4 +66,13 @@ public class FacultyController {
         }
         return result;
     }
+
+    @GetMapping("/longestFacultyName")
+    public String longestNameOfFaculty() {
+        String name = facultyService.longestNameOfFaculty();
+        if (name == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return name;
+    }
 }

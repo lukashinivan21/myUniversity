@@ -8,7 +8,10 @@ import ru.schools.myuniversity.model.FieldsForQuery;
 import ru.schools.myuniversity.model.Student;
 import ru.schools.myuniversity.repositories.StudentRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
+
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -108,6 +111,34 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> getStudentsByName(String name) {
         logger.info("Was request method for finding students with name " + name);
         return checkListOnNull(studentRepository.findStudentsByName(name));
+    }
+
+    public List<String> studentsWithNameStartsWithLetter(String letter) {
+        List<String> names = new ArrayList<>();
+        List<String> result = studentRepository.findAll().stream()
+                .map(Student::getName)
+                .filter(s -> s.startsWith(letter))
+                .sorted(String::compareTo)
+                .toList();
+        for (String s : result) {
+            names.add(s.toUpperCase());
+        }
+        if (names.isEmpty()) {
+            return null;
+        }
+        return names;
+    }
+
+    public double middleAgeOfStudentsByStream() {
+        double middleAge = 0;
+        OptionalDouble result = studentRepository.findAll().stream()
+                .map(Student::getAge)
+                .mapToInt(Integer::intValue)
+                .average();
+        if (result.isPresent()) {
+            middleAge = result.getAsDouble();
+        }
+        return middleAge;
     }
 
     private List<Student> checkListOnNull(List<Student> checkedList) {

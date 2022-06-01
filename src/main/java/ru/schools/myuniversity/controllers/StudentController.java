@@ -123,4 +123,22 @@ public class StudentController {
         }
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/studentsWithNameStartsWithLetter{letter}")
+    public ResponseEntity<List<String>> studentsWithNameStartsWithLetter(@PathVariable String letter) {
+        List<String> result = studentService.studentsWithNameStartsWithLetter(letter);
+        if (result == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/middleAgeByStream")
+    public double middleAgeOfStudentsByStream() {
+        double result =  studentService.middleAgeOfStudentsByStream();
+        if (result == 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return result;
+    }
 }
