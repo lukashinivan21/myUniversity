@@ -34,5 +34,9 @@ public interface StudentService {
 
     List<FieldsForQuery> lastFiveStudents();
 
-    public List<Student> getStudentsByName(String name);
+    List<Student> getStudentsByName(String name);
+
+    List<String> studentsWithNameStartsWithLetter(String letter);
+
+    double middleAgeOfStudentsByStream();
 }

@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import ru.schools.myuniversity.model.Faculty;
 import ru.schools.myuniversity.repositories.FacultyRepository;
 
+import java.util.Comparator;
+import java.util.Optional;
+
 @Service
 public class FacultyServiceImpl implements FacultyService{
 
@@ -63,5 +66,16 @@ public class FacultyServiceImpl implements FacultyService{
             logger.warn("There is not faculty with name " + name + " or with color " + color);
         }
         return faculty;
+    }
+
+    public String longestNameOfFaculty() {
+        String facultyName = null;
+        Optional<String> result = facultyRepository.findAll().stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparing(String::length));
+        if (result.isPresent()) {
+            facultyName = result.get();
+        }
+        return facultyName;
     }
 }

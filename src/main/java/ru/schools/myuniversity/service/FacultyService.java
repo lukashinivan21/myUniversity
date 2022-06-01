@@ -16,4 +16,6 @@ public interface FacultyService {
 
     Faculty findFacultyByNameOrColor(String name, String color);
 
+    String longestNameOfFaculty();
+
 }
