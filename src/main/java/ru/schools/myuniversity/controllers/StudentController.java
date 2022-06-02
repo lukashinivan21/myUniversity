@@ -141,4 +141,20 @@ public class StudentController {
         }
         return result;
     }
+
+
+
+    @GetMapping("/printStudentsNames")
+    public ResponseEntity<String> printStudentsNames() {
+        studentService.printStudentsNames();
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/printNamesInOrder")
+    public ResponseEntity<String> printStudentsNamesInOrder() {
+        studentService.printStudentsNamesInOrder();
+        return ResponseEntity.ok().build();
+    }
+
+
 }
