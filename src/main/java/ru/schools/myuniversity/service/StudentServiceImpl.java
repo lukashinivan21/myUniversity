@@ -141,6 +141,38 @@ public class StudentServiceImpl implements StudentService {
         return middleAge;
     }
 
+    public void printStudentsNames() {
+        List<Student> allStudents = studentRepository.findAll();
+        System.out.println(allStudents.get(0).getName());
+        System.out.println(allStudents.get(1).getName());
+
+        new Thread(() -> {
+            System.out.println(allStudents.get(2).getName());
+            System.out.println(allStudents.get(3).getName());
+        }).start();
+
+        new Thread(() -> {
+            System.out.println(allStudents.get(4).getName());
+            System.out.println(allStudents.get(5).getName());
+        }).start();
+    }
+
+    public void printStudentsNamesInOrder() {
+        print(0);
+        print(1);
+
+        new Thread(() -> {
+            print(2);
+            print(3);
+        }).start();
+
+        new Thread(() -> {
+            print(4);
+            print(5);
+        }).start();
+    }
+
+
     private List<Student> checkListOnNull(List<Student> checkedList) {
         if (checkedList.isEmpty()) {
             logger.warn("There are not students with this parameters");
@@ -149,5 +181,12 @@ public class StudentServiceImpl implements StudentService {
         return checkedList;
     }
 
+    private final Object flag = new Object();
 
+    private void print(int number) {
+        synchronized (flag) {
+            List<Student> students = studentRepository.findAll();
+            System.out.println(students.get(number).getName());
+        }
+    }
 }

@@ -39,4 +39,8 @@ public interface StudentService {
     List<String> studentsWithNameStartsWithLetter(String letter);
 
     double middleAgeOfStudentsByStream();
+
+    void printStudentsNames();
+
+    void printStudentsNamesInOrder();
 }
